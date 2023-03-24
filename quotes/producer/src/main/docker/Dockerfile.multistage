@@ -8,7 +8,7 @@ WORKDIR /code
 COPY --chown=quarkus:quarkus model /code/model
 COPY --chown=quarkus:quarkus processor /code/processor
 COPY --chown=quarkus:quarkus producer /code/producer
-RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline
+RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline -f producer
 RUN ./mvnw package -Pnative -f producer
 
 ## Stage 2 : create the docker final image

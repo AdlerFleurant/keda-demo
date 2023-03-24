@@ -8,13 +8,13 @@ WORKDIR /code
 COPY --chown=quarkus:quarkus model /code/model
 COPY --chown=quarkus:quarkus processor /code/processor
 COPY --chown=quarkus:quarkus producer /code/producer
-RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline
+RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline -f processor
 RUN ./mvnw package -Pnative -f processor
 
 ## Stage 2 : create the docker final image
 FROM quay.io/quarkus/quarkus-micro-image:2.0
 WORKDIR /work/
-COPY --from=build /code/producer/target/*-runner /work/application
+COPY --from=build /code/processor/target/*-runner /work/application
 
 # set up permissions for user `1001`
 RUN chmod 775 /work /work/application \
