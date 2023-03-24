@@ -5,9 +5,9 @@ COPY --chown=quarkus:quarkus .mvn /code/.mvn
 COPY --chown=quarkus:quarkus pom.xml /code/
 USER quarkus
 WORKDIR /code
-COPY model /code/model
-COPY processor /code/processor
-COPY producer /code/producer
+COPY --chown=quarkus:quarkus model /code/model
+COPY --chown=quarkus:quarkus processor /code/processor
+COPY --chown=quarkus:quarkus producer /code/producer
 RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline
 RUN ./mvnw package -Pnative -f producer
 
