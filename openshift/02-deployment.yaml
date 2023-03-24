@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    namespace: keda-demo
+    name: artemis
+spec:
+    selector:
+        matchLabels:
+            app: artemis
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: artemis
+        spec:
+            containers:
+                - name: container
+                  image: quay.io/artemiscloud/activemq-artemis-broker:0.1.2
+                  ports:
+                      - containerPort: 8161
+                        protocol: TCP
+            - containerPort: 61616
+              protocol: TCP
+            - containerPort: 5672
+              protocol: TCP
+                  env:
+                      - name: AMQ_USER
+                        value: quarkus
+          - name: AMQ_PASSWORD
+            value: password
