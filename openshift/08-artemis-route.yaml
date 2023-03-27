@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: artemis
+  namespace: keda-demo
+spec:
+  host: ''
+  to:
+    kind: Service
+    name: artemis
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

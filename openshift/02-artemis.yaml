@@ -1,0 +1,44 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: artemis
+  namespace: keda-demo
+spec:
+  acceptors:
+    - name: default
+      port: 5672
+      protocols: amqp
+  adminPassword: quarkus
+  adminUser: quarkus
+  console:
+    expose: true
+  deploymentPlan:
+    image: placeholder
+    jolokiaAgentEnabled: false
+    journalType: nio
+    managementRBACEnabled: true
+    messageMigration: false
+    persistenceEnabled: false
+    requireLogin: false
+    clustered: true
+    size: 2
+---
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisAddress
+metadata:
+  name: quotes
+  namespace: keda-demo
+spec:
+  addressName: quote-requests
+  queueName: quotes
+  routingType: anycast
+---
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisAddress
+metadata:
+  name: requests
+  namespace: keda-demo
+spec:
+  addressName: quote-requests
+  queueName: requests
+  routingType: anycast

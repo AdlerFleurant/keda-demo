@@ -1,0 +1,24 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: consumer
+  namespace: keda-demo
+spec:
+  scaleTargetRef:
+    name: processor
+  minReplicaCount:  0                                # Optional. Default: 0
+  maxReplicaCount:  10                              # Optional. Default: 100
+  fallback:                                          # Optional. Section to specify fallback options
+    failureThreshold: 3                              # Mandatory if fallback section is included
+    replicas: 5                                      # Mandatory if fallback section is included
+  triggers:
+  - type: artemis-queue
+    metadata:
+      managementEndpoint: "artemis-wconsj-0-svc-rte-keda-demo.apps.cluster-vm2k6.vm2k6.sandbox2819.opentlc.com:80"
+      queueName: "requests"
+      brokerName: "amq-broker"
+      brokerAddress: "quote-requests"
+      queueLength: '10'
+      activationQueueLength: '1'
+      username: 'quarkus'
+      password: 'quarkus'
