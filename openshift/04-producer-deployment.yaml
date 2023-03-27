@@ -24,6 +24,10 @@ spec:
           value: artemis-default-0-svc
         - name: AMQP_PORT
           value: '5672'
+        - name: REQUESTS_ADDRESS
+          value: quotes:requests
+        - name: RESPONSES_ADDRESS
+          value: quotes:responses
 ---
 apiVersion: v1
 kind: Service

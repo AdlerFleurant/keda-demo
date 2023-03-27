@@ -1,3 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: keda-demo
+  name: processor
+spec:
+  selector:
+    matchLabels:
+      app: processor
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: processor
+    spec:
+      containers:
+      - name: container
+        image: image-registry.openshift-image-registry.svc:5000/keda-demo/processor:latest
+        env:
+        - name: AMQP_HOST
+          value: artemis-default-0-svc
+        - name: AMQP_PORT
+          value: '5672'
+        - name: REQUESTS_ADDRESS
+          value: quotes:requests
+        - name: RESPONSES_ADDRESS
+          value: quotes:responses
+---
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
