@@ -25,9 +25,9 @@ spec:
         - name: AMQP_PORT
           value: '5672'
         - name: REQUESTS_ADDRESS
-          value: quotes:requests
+          value: requests
         - name: RESPONSES_ADDRESS
-          value: quotes:responses
+          value: responses
 ---
 apiVersion: v1
 kind: Service

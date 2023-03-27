@@ -26,11 +26,11 @@ spec:
 apiVersion: broker.amq.io/v1beta1
 kind: ActiveMQArtemisAddress
 metadata:
-  name: quotes
+  name: responses
   namespace: keda-demo
 spec:
-  addressName: quote-requests
-  queueName: quotes
+  addressName: responses
+  queueName: responses
   routingType: anycast
 ---
 apiVersion: broker.amq.io/v1beta1
@@ -39,6 +39,6 @@ metadata:
   name: requests
   namespace: keda-demo
 spec:
-  addressName: quote-requests
+  addressName: requests
   queueName: requests
   routingType: anycast
