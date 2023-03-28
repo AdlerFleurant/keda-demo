@@ -1,18 +1,17 @@
-package org.acme.amqp;
+package org.acme.quote.producer;
 
 import io.quarkus.logging.Log;
-import io.quarkus.runtime.QuarkusApplication;
-import io.quarkus.runtime.annotations.QuarkusMain;
 import org.acme.quote.RequestSupplierService;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.stream.IntStream;
 
-@QuarkusMain
-public class ProducerMain implements QuarkusApplication {
+@Singleton
+public class ProducerService implements Runnable {
 
     @Inject
     RequestSupplierService service;
@@ -24,13 +23,12 @@ public class ProducerMain implements QuarkusApplication {
     int quantity;
 
     @Override
-    public int run(String... args) {
+    public void run() {
         IntStream.range(0, quantity).parallel()
                 .forEach(ignored -> {
                     String request = service.get();
                     quoteRequestEmitter.send(request);
                     Log.info("Sent request " + request);
                 });
-        return 0;
     }
 }

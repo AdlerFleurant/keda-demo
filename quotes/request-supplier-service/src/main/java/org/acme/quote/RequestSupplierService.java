@@ -1,10 +1,10 @@
 package org.acme.quote;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@RequestScoped
+@Dependent
 public class RequestSupplierService implements Supplier<String> {
 
     @Override

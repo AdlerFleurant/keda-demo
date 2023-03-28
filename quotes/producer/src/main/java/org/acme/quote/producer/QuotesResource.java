@@ -1,7 +1,7 @@
-package org.acme.amqp.producer;
+package org.acme.quote.producer;
 
 import io.smallrye.mutiny.Multi;
-import org.acme.amqp.model.Quote;
+import org.acme.quote.model.Quote;
 import org.acme.quote.RequestSupplierService;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;

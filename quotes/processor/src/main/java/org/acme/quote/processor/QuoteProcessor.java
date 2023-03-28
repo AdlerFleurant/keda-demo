@@ -1,7 +1,7 @@
-package org.acme.amqp.processor;
+package org.acme.quote.processor;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
-import org.acme.amqp.model.Quote;
+import org.acme.quote.model.Quote;
 import org.acme.quote.RequestProcessorService;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;

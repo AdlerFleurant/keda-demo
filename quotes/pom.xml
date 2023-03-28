@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.acme</groupId>
+    <groupId>org.acme.quote</groupId>
     <artifactId>quotes</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>model</module>
+        <module>request-supplier-service</module>
+        <module>request-processor-service</module>
         <module>processor</module>
         <module>producer</module>
         <module>processor-cl</module>
         <module>producer-cl</module>
-        <module>request-supplier-service</module>
-        <module>request-processor-service</module>
     </modules>
 
     <properties>
@@ -48,6 +48,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler-plugin.version}</version>
                 <configuration>
                     <source>17</source>
                     <target>17</target>

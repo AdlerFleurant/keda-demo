@@ -1,4 +1,4 @@
-package org.acme.quote.processor;
+package org.acme.quote.producer;
 
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -6,14 +6,14 @@ import io.quarkus.runtime.annotations.QuarkusMain;
 import javax.inject.Inject;
 
 @QuarkusMain
-public class ProcessorMain implements QuarkusApplication {
+public class ProducerMain implements QuarkusApplication {
 
     @Inject
-    ProcessorService service;
+    ProducerService service;
 
     @Override
     public int run(String... args) {
-        service.process();
+        service.run();
         return 0;
     }
 }
