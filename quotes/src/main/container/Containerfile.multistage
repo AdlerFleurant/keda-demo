@@ -8,9 +8,9 @@ USER quarkus
 WORKDIR /code
 COPY --chown=quarkus:quarkus model /code/model
 COPY --chown=quarkus:quarkus processor /code/processor
-COPY --chown=quarkus:quarkus processor-ci /code/processor-ci
+COPY --chown=quarkus:quarkus processor-cl /code/processor-cl
 COPY --chown=quarkus:quarkus producer /code/producer
-COPY --chown=quarkus:quarkus producer-ci /code/producer-ci
+COPY --chown=quarkus:quarkus producer-cl /code/producer-cl
 COPY --chown=quarkus:quarkus request-processor-service /code/request-processor-service
 COPY --chown=quarkus:quarkus request-supplier-service /code/request-supplier-service
 RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline --projects $PROJECT --also-make
