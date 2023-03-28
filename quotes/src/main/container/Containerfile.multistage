@@ -18,6 +18,7 @@ RUN ./mvnw package -Pnative --projects $PROJECT --also-make
 
 ## Stage 2 : create the docker final image
 FROM quay.io/quarkus/quarkus-micro-image:2.0
+ARG PROJECT
 WORKDIR /work/
 COPY --from=build /code/$PROJECT/target/*-runner /work/application
 
