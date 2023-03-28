@@ -24,7 +24,7 @@ public class ProducerService implements Runnable {
 
     @Override
     public void run() {
-        IntStream.range(0, quantity).parallel()
+        IntStream.range(0, quantity)
                 .forEach(ignored -> {
                     String request = service.get();
                     quoteRequestEmitter.send(request);

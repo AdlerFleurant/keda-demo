@@ -42,7 +42,7 @@ spec:
   addressName: requests
   queueName: requests
   routingType: anycast
-  ---
+---
 apiVersion: broker.amq.io/v1beta1
 kind: ActiveMQArtemisAddress
 metadata:
@@ -52,7 +52,7 @@ spec:
   addressName: responses-cl
   queueName: responses-cl
   routingType: anycast
-  ---
+---
 apiVersion: broker.amq.io/v1beta1
 kind: ActiveMQArtemisAddress
 metadata:

@@ -1,6 +1,6 @@
-REGISTRY=
-TOKEN=
-ADMIN=
+REGISTRY=$(oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}')
+TOKEN=$(oc whoami -t)
+ADMIN=$(oc whoami)
 
 podman tag processor $REGISTRY/keda-demo/processor
 podman tag producer $REGISTRY/keda-demo/producer

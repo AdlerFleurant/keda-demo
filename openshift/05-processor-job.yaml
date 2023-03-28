@@ -11,19 +11,19 @@ spec:
     activeDeadlineSeconds: 600                #  Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
     backoffLimit: 6                           # Specifies the number of retries before marking this job failed. Defaults to 6
     template:
-    spec:
-      containers:
-      - name: processor
-        image: image-registry.openshift-image-registry.svc:5000/keda-demo/processor-cl:latest
-        env:
-        - name: AMQP_HOST
-          value: artemis-default-0-svc
-      - name: AMQP_PORT
-        value: '5672'
-      - name: REQUESTS_ADDRESS
-        value: requests-cl
-      - name: RESPONSES_ADDRESS
-        value: responses-cl
+      spec:
+        containers:
+        - name: processor
+          image: image-registry.openshift-image-registry.svc:5000/keda-demo/processor-cl:latest
+          env:
+          - name: AMQP_HOST
+            value: artemis-default-0-svc
+        - name: AMQP_PORT
+          value: '5672'
+        - name: REQUESTS_ADDRESS
+          value: requests-cl
+        - name: RESPONSES_ADDRESS
+          value: responses-cl
   minReplicaCount:  0                                # Optional. Default: 0
   maxReplicaCount:  100                                   # Mandatory if fallback section is included
   triggers:
