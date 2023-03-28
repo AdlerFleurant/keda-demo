@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   namespace: keda-demo
   name: processor
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"processor:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"processor\")].image"}]
 spec:
   selector:
     matchLabels:
@@ -14,7 +17,7 @@ spec:
         app: processor
     spec:
       containers:
-      - name: container
+      - name: processor
         image: image-registry.openshift-image-registry.svc:5000/keda-demo/processor:latest
         env:
         - name: AMQP_HOST
@@ -29,7 +32,7 @@ spec:
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: consumer
+  name: processor
   namespace: keda-demo
 spec:
   scaleTargetRef:
