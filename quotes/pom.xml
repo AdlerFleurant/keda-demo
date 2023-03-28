@@ -12,6 +12,10 @@
         <module>model</module>
         <module>processor</module>
         <module>producer</module>
+        <module>processor-cl</module>
+        <module>producer-cl</module>
+        <module>request-supplier-service</module>
+        <module>request-processor-service</module>
     </modules>
 
     <properties>

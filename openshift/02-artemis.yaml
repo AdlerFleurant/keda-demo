@@ -42,3 +42,23 @@ spec:
   addressName: requests
   queueName: requests
   routingType: anycast
+  ---
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisAddress
+metadata:
+  name: responses-cl
+  namespace: keda-demo
+spec:
+  addressName: responses-cl
+  queueName: responses-cl
+  routingType: anycast
+  ---
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisAddress
+metadata:
+  name: requests-cl
+  namespace: keda-demo
+spec:
+  addressName: requests-cl
+  queueName: requests-cl
+  routingType: anycast

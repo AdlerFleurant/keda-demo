@@ -1,25 +1,28 @@
 package org.acme.amqp.producer;
 
-import java.util.UUID;
+import io.smallrye.mutiny.Multi;
+import org.acme.amqp.model.Quote;
+import org.acme.quote.RequestSupplierService;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.acme.amqp.model.Quote;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
-
-import io.smallrye.mutiny.Multi;
-
 @Path("/quotes")
 public class QuotesResource {
 
-    @Channel("requests") Emitter<String> quoteRequestEmitter;
-    @Channel("responses") Multi<Quote> quotes;
+    @Channel("requests")
+    Emitter<String> quoteRequestEmitter;
+    @Channel("responses")
+    Multi<Quote> quotes;
 
+    @Inject
+    RequestSupplierService requestCreationService;
 
     /**
      * Endpoint retrieving the "quotes" queue and sending the items to a server sent event.
@@ -37,8 +40,8 @@ public class QuotesResource {
     @Path("/request")
     @Produces(MediaType.TEXT_PLAIN)
     public String createRequest() {
-        UUID uuid = UUID.randomUUID();
-        quoteRequestEmitter.send(uuid.toString());
-        return uuid.toString();
+        String request = requestCreationService.get();
+        quoteRequestEmitter.send(request);
+        return request;
     }
 }

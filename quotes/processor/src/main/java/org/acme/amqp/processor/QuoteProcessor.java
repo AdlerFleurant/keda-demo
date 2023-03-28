@@ -1,16 +1,13 @@
 package org.acme.amqp.processor;
 
-import java.util.Random;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
+import io.smallrye.reactive.messaging.annotations.Blocking;
 import org.acme.amqp.model.Quote;
+import org.acme.quote.RequestProcessorService;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
-import io.smallrye.reactive.messaging.annotations.Blocking;
-import org.jboss.logging.Logger;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 /**
  * A bean consuming data from the "request" AMQP queue and giving out a random quote.
@@ -18,19 +15,13 @@ import org.jboss.logging.Logger;
  */
 @ApplicationScoped
 public class QuoteProcessor {
-
-    private Random random = new Random();
-
     @Inject
-    Logger log;
+    RequestProcessorService processorService;
 
     @Incoming("requests")
     @Outgoing("responses")
     @Blocking
-    public Quote process(String quoteRequest) throws InterruptedException {
-        // simulate some hard-working task
-        log.info(quoteRequest);
-        Thread.sleep(200);
-        return new Quote(quoteRequest, random.nextInt(100));
+    public Quote process(String quoteRequest) {
+        return processorService.apply(quoteRequest);
     }
 }

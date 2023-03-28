@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: keda-demo
+  name: producer
+spec:
+  template:
+    spec:
+      containers:
+      - name: producer
+        image: image-registry.openshift-image-registry.svc:5000/keda-demo/producer-cl:latest
+        env:
+        - name: AMQP_HOST
+          value: artemis-default-0-svc
+        - name: AMQP_PORT
+          value: '5672'
+        - name: REQUESTS_ADDRESS
+          value: requests-cl
+        - name: RESPONSES_ADDRESS
+          value: responses-cl

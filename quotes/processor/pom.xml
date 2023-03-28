@@ -22,7 +22,7 @@
     </dependency>
     <dependency>
       <groupId>org.acme</groupId>
-      <artifactId>model</artifactId>
+      <artifactId>request-processor-service</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
