@@ -1,2 +1,2 @@
-podman build . -f processor/src/main/docker/Dockerfile.multistage -t processor
-podman build . -f producer/src/main/docker/Dockerfile.multistage -t producer
+podman build . -f src/main/container/Containerfile.multistage -t processor --build-arg PROJECT=processor
+podman build . -f src/main/container/Containerfile.multistage -t producer --build-arg PROJECT=producer
