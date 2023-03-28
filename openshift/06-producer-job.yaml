@@ -2,14 +2,14 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   namespace: keda-demo
-  name: producer
+  name: producer-cl
 spec:
   template:
     spec:
       restartPolicy: OnFailure
       backoffLimit: 10
       containers:
-      - name: producer
+      - name: producer-cl
         image: image-registry.openshift-image-registry.svc:5000/keda-demo/producer-cl:latest
         env:
         - name: AMQP_HOST
@@ -18,5 +18,3 @@ spec:
           value: '5672'
         - name: REQUESTS_ADDRESS
           value: requests-cl
-        - name: RESPONSES_ADDRESS
-          value: responses-cl
