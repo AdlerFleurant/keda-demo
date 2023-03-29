@@ -18,12 +18,12 @@ spec:
           env:
           - name: AMQP_HOST
             value: artemis-default-0-svc
-        - name: AMQP_PORT
-          value: '5672'
-        - name: REQUESTS_ADDRESS
-          value: requests-cl
-        - name: RESPONSES_ADDRESS
-          value: responses-cl
+          - name: AMQP_PORT
+            value: '5672'
+          - name: REQUESTS_ADDRESS
+            value: requests-cl
+          - name: RESPONSES_ADDRESS
+            value: responses-cl
   minReplicaCount:  0                                # Optional. Default: 0
   maxReplicaCount:  100                                   # Mandatory if fallback section is included
   triggers:
@@ -33,7 +33,7 @@ spec:
       queueName: "requests-cl"
       brokerName: "amq-broker"
       brokerAddress: "requests-cl"
-      queueLength: '10'
+      queueLength: '1'
       activationQueueLength: '1'
       username: 'quarkus'
       password: 'quarkus'

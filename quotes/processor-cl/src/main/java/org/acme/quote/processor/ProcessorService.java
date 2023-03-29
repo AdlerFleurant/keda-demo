@@ -1,10 +1,11 @@
 package org.acme.quote.processor;
 
-import io.smallrye.mutiny.Multi;
-import org.acme.quote.model.Quote;
+import jakarta.jms.JMSContext;
+import jakarta.jms.Queue;
+import jakarta.jms.QueueConnectionFactory;
 import org.acme.quote.RequestProcessorService;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.acme.quote.model.Quote;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -12,20 +13,29 @@ import javax.inject.Singleton;
 @Singleton
 public class ProcessorService {
 
-    @Channel("requests")
-    Multi<String> requestStream;
+    @Inject
+    QueueConnectionFactory connectionFactory;
 
-    @Channel("responses")
-    Emitter<Quote> quoteEmitter;
+    @ConfigProperty(name = "request.address")
+    String requestAddress;
+
+    @ConfigProperty(name = "responseAddress")
+    String responseAddress;
 
     @Inject
     RequestProcessorService processorService;
 
     public void process(){
-        String quoteRequest = requestStream.toUni().await().indefinitely();
+        try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)) {
 
-        Quote quote = processorService.apply(quoteRequest);
+            Queue requestQueue = context.createQueue(requestAddress);
+            Queue responseQueue = context.createQueue(responseAddress);
 
-        quoteEmitter.send(quote);
+            String request = context.createConsumer(requestQueue).receiveBody(String.class);
+
+            Quote quote = processorService.apply(request);
+
+            context.createProducer().send(responseQueue, quote);
+        }
     }
 }
