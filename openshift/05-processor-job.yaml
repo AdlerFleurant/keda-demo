@@ -20,9 +20,9 @@ spec:
             value: artemis-default-0-svc
           - name: AMQP_PORT
             value: '5672'
-          - name: REQUESTS_ADDRESS
+          - name: REQUEST_ADDRESS
             value: requests-cl
-          - name: RESPONSES_ADDRESS
+          - name: RESPONSE_ADDRESS
             value: responses-cl
   minReplicaCount:  0                                # Optional. Default: 0
   maxReplicaCount:  100                                   # Mandatory if fallback section is included

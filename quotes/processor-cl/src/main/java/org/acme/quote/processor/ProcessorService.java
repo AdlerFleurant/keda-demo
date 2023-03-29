@@ -20,7 +20,7 @@ public class ProcessorService {
     @ConfigProperty(name = "request.address")
     String requestAddress;
 
-    @ConfigProperty(name = "responseAddress")
+    @ConfigProperty(name = "response.address")
     String responseAddress;
 
     @Inject

@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   namespace: keda-demo
-  name: producer-cl
+  generateName: producer-cl-
 spec:
   template:
     spec:
