@@ -37,11 +37,11 @@ metadata:
 spec:
   scaleTargetRef:
     name: processor
-  minReplicaCount:  0                                # Optional. Default: 0
-  maxReplicaCount:  10                              # Optional. Default: 100
-  fallback:                                          # Optional. Section to specify fallback options
-    failureThreshold: 3                              # Mandatory if fallback section is included
-    replicas: 5                                      # Mandatory if fallback section is included
+  minReplicaCount:  0                               # No replicas if queue length is zero
+  maxReplicaCount:  10                              # At most 10 replicas
+  fallback:
+    failureThreshold: 3
+    replicas: 5                                     # When failing to read metric, create 5 replicas
   triggers:
   - type: artemis-queue
     metadata:
@@ -49,7 +49,7 @@ spec:
       queueName: "requests"
       brokerName: "amq-broker"
       brokerAddress: "requests"
-      queueLength: '10'
-      activationQueueLength: '1'
+      queueLength: '10'                             # Creates 1 replica for every 10 element
+      activationQueueLength: '1'                    # Activates this trigger whenever this queue is not empty
       username: 'quarkus'
       password: 'quarkus'

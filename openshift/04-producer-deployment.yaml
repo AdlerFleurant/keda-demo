@@ -39,19 +39,18 @@ metadata:
   namespace: keda-demo
 spec:
   scaleTargetRef:
-    name: producer
-  minReplicaCount:  0                                # Optional. Default: 0
-  maxReplicaCount:  1                                # Optional. Default: 100
-  fallback:                                          # Optional. Section to specify fallback options
-    failureThreshold: 3                              # Mandatory if fallback section is included
-    replicas: 1                                      # Mandatory if fallback section is included
+    name: producer      # I want to scale the producer Deployment
+  minReplicaCount:  0   # No Pod outside hours of Operation
+  maxReplicaCount:  1   # Never more than 1 replica
+  fallback:
+    failureThreshold: 3
+    replicas: 1         # If the trigger is failing, we need at least 1 replica
   triggers:
     - type: cron
       metadata:
-        # Required
-        timezone: America/New_York  # The acceptable values would be a value from the IANA Time Zone Database.
-        start: 45 * * * *
-        end: 50 * * * *
+        timezone: America/New_York
+        start: 0 * * * * # Active starting at 35th minute of every hour
+        end: 55 * * * *   # Not active after the 50th minute of every hour
         desiredReplicas: "1"
 ---
 apiVersion: v1

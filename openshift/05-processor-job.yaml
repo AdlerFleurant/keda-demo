@@ -6,10 +6,10 @@ metadata:
   namespace: keda-demo
 spec:
   jobTargetRef:
-    parallelism: 1                        # [max number of desired pods](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#controlling-parallelism)
-    completions: 1                        # [desired number of successfully finished pods](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#controlling-parallelism)
-    activeDeadlineSeconds: 600                #  Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
-    backoffLimit: 6                           # Specifies the number of retries before marking this job failed. Defaults to 6
+    parallelism: 1
+    completions: 1
+    activeDeadlineSeconds: 600
+    backoffLimit: 6
     template:
       spec:
         containers:
@@ -24,8 +24,8 @@ spec:
             value: requests-cl
           - name: RESPONSE_ADDRESS
             value: responses-cl
-  minReplicaCount:  0                                # Optional. Default: 0
-  maxReplicaCount:  100                                   # Mandatory if fallback section is included
+  minReplicaCount:  0
+  maxReplicaCount:  100
   triggers:
   - type: artemis-queue
     metadata:

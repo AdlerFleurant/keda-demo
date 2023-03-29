@@ -1,5 +1,6 @@
 package org.acme.quote.producer;
 
+import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Multi;
 import org.acme.quote.model.Quote;
 import org.acme.quote.RequestSupplierService;
@@ -30,6 +31,7 @@ public class QuotesResource {
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
     public Multi<Quote> stream() {
+        Log.info("Returning the Stream. I have no idea if it's empty but it was requested");
         return quotes;
     }
 
