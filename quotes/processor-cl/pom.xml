@@ -11,12 +11,17 @@
 
     <artifactId>processor-cl</artifactId>
 
+    <properties>
+        <quarkus.qpid.jms.group-id>${quarkus.platform.group-id}</quarkus.qpid.jms.group-id>
+        <quarkus.qpid.jms.version>${quarkus.platform.version}</quarkus.qpid.jms.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.quarkiverse.artemis</groupId>
-                <artifactId>quarkus-artemis-bom</artifactId>
-                <version>3.0.0.Alpha7</version>
+                <groupId>${quarkus.qpid.jms.group-id}</groupId>
+                <artifactId>quarkus-qpid-jms-bom</artifactId>
+                <version>${quarkus.qpid.jms.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -30,8 +35,8 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.quarkiverse.artemis</groupId>
-            <artifactId>quarkus-artemis-jms</artifactId>
+            <groupId>org.amqphub.quarkus</groupId>
+            <artifactId>quarkus-qpid-jms</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

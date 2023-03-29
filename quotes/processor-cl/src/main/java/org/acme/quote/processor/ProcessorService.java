@@ -1,20 +1,21 @@
 package org.acme.quote.processor;
 
-import jakarta.jms.JMSContext;
-import jakarta.jms.Queue;
-import jakarta.jms.QueueConnectionFactory;
+
 import org.acme.quote.RequestProcessorService;
 import org.acme.quote.model.Quote;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.Queue;
 
 @Singleton
 public class ProcessorService {
 
     @Inject
-    QueueConnectionFactory connectionFactory;
+    ConnectionFactory connectionFactory;
 
     @ConfigProperty(name = "request.address")
     String requestAddress;
