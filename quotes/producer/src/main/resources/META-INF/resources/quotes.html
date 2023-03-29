@@ -29,9 +29,7 @@
     var source = new EventSource("/quotes");
     source.onmessage = (event) => {
         var json = JSON.parse(event.data);
-        console.log("YABADABADOO: ", json);
         $(`#${json.id}`).html(function(index, html) {
-            console.log("Price ", json.id + ` \$\xA0${json.price}`)
             return html.replace("Pending", `\$\xA0${json.price}`);
         });
     };
